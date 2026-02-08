@@ -1,24 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Drive</title> <style>
+        body { background: #111; color: white; font-family: sans-serif; text-align: center; }
+        /* The Password Overlay */
+        #locker {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #111; z-index: 9999; display: flex; 
+            flex-direction: column; justify-content: center; align-items: center;
+        }
+        .hidden { display: none !important; }
+        input { padding: 10px; width: 250px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff; }
+        .btn { padding: 10px 20px; margin: 10px; cursor: pointer; background: #33a; border: none; color: white; border-radius: 5px; }
+    </style>
+</head>
 <body>
-    <h1>Gaming Center</h1>
-    <input id="url" type="text" placeholder="Search or enter URL...">
-    <button onclick="launch()">Go</button>
+    <div id="locker">
+        <h2>Enter Access Key</h2>
+        <input type="password" id="passInput" placeholder="Password...">
+        <button class="btn" onclick="checkPass()">Unlock</button>
+    </div>
 
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 20px;">
-        <button class="btn" onclick="launchGame('https://slope-game.github.io/')">SLOPE</button>
-        <button class="btn" onclick="launchGame('https://precisionclient.pages.dev/')">MINECRAFT</button>
-        <button class="btn" onclick="launchGame('https://easyfun.gg/roblox')">ROBLOX</button>
-        <button class="btn" onclick="launchGame('https://now.gg/apps/scott-cawthon/51750/five-nights-at-freddy-s.html')">FNAF 6</button>
+    <div id="mainContent" class="hidden">
+        <h1>Gaming Proxy</h1>
+        <input id="url" type="text" placeholder="https://google.com">
+        <button class="btn" onclick="launch()">Launch</button>
+        <br>
+        <button class="btn" style="background:#e11" onclick="launchGame('https://easyfun.gg/roblox')">ROBLOX</button>
     </div>
 
     <script src="/uv/uv.bundle.js"></script>
     <script src="/uv/uv.config.js"></script>
     <script>
+        // --- Password Logic ---
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            if (pass === "YOUR_PASSWORD_HERE") { // Set your password here
+                document.getElementById('locker').classList.add('hidden');
+                document.getElementById('mainContent').classList.remove('hidden');
+            } else {
+                alert("Incorrect Password!");
+            }
+        }
+
+        // --- Proxy Logic ---
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/uv/sw.js', { scope: '/uv/service/' });
+        }
+
         function launch() {
             const url = document.getElementById('url').value;
             window.location.href = "/uv/service/" + btoa(url);
         }
+
         function launchGame(target) {
             window.location.href = "/uv/service/" + btoa(target);
         }
     </script>
 </body>
+</html>

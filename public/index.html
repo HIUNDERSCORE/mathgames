@@ -1,0 +1,24 @@
+<body>
+    <h1>Gaming Center</h1>
+    <input id="url" type="text" placeholder="Search or enter URL...">
+    <button onclick="launch()">Go</button>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 20px;">
+        <button class="btn" onclick="launchGame('https://slope-game.github.io/')">SLOPE</button>
+        <button class="btn" onclick="launchGame('https://precisionclient.pages.dev/')">MINECRAFT</button>
+        <button class="btn" onclick="launchGame('https://easyfun.gg/roblox')">ROBLOX</button>
+        <button class="btn" onclick="launchGame('https://now.gg/apps/scott-cawthon/51750/five-nights-at-freddy-s.html')">FNAF 6</button>
+    </div>
+
+    <script src="/uv/uv.bundle.js"></script>
+    <script src="/uv/uv.config.js"></script>
+    <script>
+        function launch() {
+            const url = document.getElementById('url').value;
+            window.location.href = "/uv/service/" + btoa(url);
+        }
+        function launchGame(target) {
+            window.location.href = "/uv/service/" + btoa(target);
+        }
+    </script>
+</body>

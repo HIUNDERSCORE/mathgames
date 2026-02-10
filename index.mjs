@@ -2,7 +2,6 @@ import compression from 'compression'; // Add this to your package.json dependen
 // ... rest of your imports
 
 const app = express();
-app.use(compression()); // This shrinks the data sent to your browser, making it load faster
 import express from 'express';
 import { createServer } from 'node:http';
 import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
